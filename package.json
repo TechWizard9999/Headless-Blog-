@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "latest",
+    "normalize.css": "^8.0.1",
     "react": "latest",
     "react-dom": "latest",
-    "next": "latest"
+    "sass": "^1.68.0"
   }
 }
