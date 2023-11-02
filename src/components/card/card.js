@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import styles from './card.module.sass'
+import ConditionalRenderer from '../conditional-renderer';
 import Button from '../button/button';
-const Card = () => (
-<div className={styles.card_wrap}>
+import getCategoryColour from '@/helpers/get-category-colour';
+
+const Card = (props) => (
+<div className={`${styles.card_wrap} ${props.className || ''}`}>
     <div className={styles.card}>
         <div className={styles.card_imageWrap}>
             <div className={styles.card_image}>
@@ -10,10 +13,18 @@ const Card = () => (
             </div>
         </div>
         <div className={styles.card_content}>
-                <div className={`${styles.card_label} h6 mb-10 c-orange`}> Product Reviews</div>
-                <div className={`${styles.card_title} h3 mb-20`}> This is the best product ever seen</div>
-                <p className={`${styles.card_summary} fw-600`}> This si sthe summary part of the product</p>
-                <Button href="#">Read More </Button>
+            <ConditionalRenderer condition={props.label}>
+                <div className={`${styles.card_label} h6 mb-10 c-${getCategoryColour(props.label)}`}> {props.label}</div>
+            </ConditionalRenderer>
+            <ConditionalRenderer condition={props.title}>
+                <div className={`${styles.card_title} h3 mb-20`}> {props.title}</div>
+            </ConditionalRenderer>
+            <ConditionalRenderer condition={props.summary}>
+                <p className={`${styles.card_summary} fw-600`}> {props.summary}</p>
+            </ConditionalRenderer>
+            <ConditionalRenderer condition={props.href}>
+                <Button href={props.href} >Read More </Button>
+            </ConditionalRenderer>
          </div>
     </div>
 </div>
