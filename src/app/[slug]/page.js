@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from './style.module.sass'
 
 
+
 const BlogDetails = () =>(
   <div className="container pb-80">
     <div className="row mb-50">

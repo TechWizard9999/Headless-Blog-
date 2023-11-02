@@ -16,12 +16,11 @@ const fetchBlog = async (params) => {
 
 
 const Home = async () => {
-  const [featuredBlogs , Blog] = await Promise.all([
-    await fetchBlog('filters[isFeatured][$eq]=true'),
-    await fetchBlog('filters[isFeatured][$eq]=false')
-  ]);
+  const featuredBlogs = await fetchBlog('filters[isFeatured][$eq]=true');
+  const Blog = await  await fetchBlog('filters[isFeatured][$eq]=false');
 
-  console.log ("featured ",featuredBlogs.data)
+  console.log ("featured ",Blog.data)
+
 
  return(
   <div className="container pb-80">
@@ -37,25 +36,39 @@ const Home = async () => {
     ))}
 
     <div className="row">
-      <div className="col col_4 m-mw-100"> <Card 
-    label='Opinion'
-    title='This is the best product ever seen'
-    summary='This is the summary part of the product'
-    href='#'
-    className="mb-30"
-    /></div>
-      <div className="col col_4 m-mw-100"> <Card 
-    label='Product Reviews'
-    title='This is the best product ever seen'
-    summary='This is the summary part of the product'
-    href='#'
-    className="mb-30"/></div>
-      <div className="col col_4 m-mw-100"><Card 
-    label='Travel Guides'
-    title='This is the best product ever seen'
-    summary='This is the summary part of the product'
-    href='#'
-    className="mb-30"/></div>
+      {featuredBlogs.data.map(featuredBlogs => (
+        <div className="col col_4 m-mw-100"  > <Card 
+        key={featuredBlogs.attributes.id}
+      label={featuredBlogs.attributes.Category}
+      title={featuredBlogs.attributes.Title}
+      summary={featuredBlogs.attributes.Summary}
+      href={`/${featuredBlogs.attributes.slug}`}
+      imgSrc={`${config.api}${featuredBlogs.attributes.FeaturedImage.data.attributes.url}`}
+        className="mb-30"
+      /></div>
+      ))}
+      {featuredBlogs.data.map(featuredBlogs => (
+        <div className="col col_4 m-mw-100"  > <Card 
+        key={featuredBlogs.attributes.id}
+      label={featuredBlogs.attributes.Category}
+      title={featuredBlogs.attributes.Title}
+      summary={featuredBlogs.attributes.Summary}
+      href={`/${featuredBlogs.attributes.slug}`}
+      imgSrc={`${config.api}${featuredBlogs.attributes.FeaturedImage.data.attributes.url}`}
+        className="mb-30"
+      /></div>
+      ))}
+      {featuredBlogs.data.map(featuredBlogs => (
+        <div className="col col_4 m-mw-100"  > <Card 
+        key={featuredBlogs.attributes.id}
+      label={featuredBlogs.attributes.Category}
+      title={featuredBlogs.attributes.Title}
+      summary={featuredBlogs.attributes.Summary}
+      href={`/${featuredBlogs.attributes.slug}`}
+      imgSrc={`${config.api}${featuredBlogs.attributes.FeaturedImage.data.attributes.url}`}
+        className="mb-30"
+      /></div>
+      ))}
     </div>
   </div>
  )
